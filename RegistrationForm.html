@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Customer Survey Form</title>
+	<h1>Customer Survey Form</h1>
+   <style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 50px;
+        background-color: #f0f0f0;
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    button:hover {
+        background: #45a049;
+    }
+
+    #popup {
+        display: none;
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-top: 20px;
+    }
+</style>
+
+</head>
+<body>
+    <form id="surveyForm">
+        <div>
+            <label for="name">Name:</label></br>
+            <input type="text" id="firstName" required>
+        </div>
+        <div>
+            <label for="email">Email:</label></br>
+            <input type="text" id="email" required>
+        </div>
+
+        <div class="1">
+            <label>Is this first time You are using our products & Service?</label></br>
+				<label>
+					<input type="radio" id="PsYes" name="PS" value="Yes">Yes
+				</label>
+				<label>
+					<input type="radio" id="PsNo" name="PS" value="No"> No
+				</label>
+        </div>
+		
+		 <div class="2">
+            <label>Would you suggestion to you friends and colleague?</label><br>
+			<label>
+				<input type="radio" id="FcYes" name="FC" Value="Yes"> Yes
+			</label>
+            <label>
+				<input type="radio" id="FcNo" name="FC" Value="No"> No
+			</label>
+        </div>
+		
+		<div class="3">
+            <label>How satisfied are you with our company overall?</label><br>
+            <label>
+				<input type="radio" id="rate1" name="rating"Value="Satisfied"> Satisfied
+			</label>
+            <label>
+				<input type="radio" id="rate2" name="rating"Value="Undecided"> Undecided
+			</label>
+			<label>
+				<input type="radio" id="rate3" name="rating"Value="Undecided"> Unsatisfied
+			</label>
+        </div>
+		<div class="4">
+            <label>Do you have suggestion to improve our service?</label><br>
+			<textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
+		</div>
+        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+
+    <div id="popup" style="display:none;">
+        <!-- Popup content will be filled via JavaScript -->
+    </div>
+
+    <script>
+		function resetForm() {
+            document.getElementById('surveyForm').reset();
+            document.getElementById('popup').style.display = 'none';
+        }
+		function getSelectedProductService() {
+			var PsYes = document.getElementById("PsYes");
+			var PsNo = document.getElementById("PsNo");
+			
+			if(PsYes.checked){
+				return PsYes.value;
+			}
+			else{
+				return PsNo.value;
+			}
+        }
+		function getSelectedFriendColleague() {
+			var FcYes = document.getElementById("FcYes");
+			var FcNo = document.getElementById("FcNo");
+			
+			if(FcYes.checked){
+				return FcYes.value;
+			}
+			else{
+				return FcNo.value;
+			}
+        }
+		function getSelectedRating() {
+			var rate1 = document.getElementById("rate1");
+			var rate2 = document.getElementById("rate2");
+			var rate3 = document.getElementById("rate3");
+			if(rate1.checked){
+				return rate1.value;
+			}
+			else if(rate2.checked){
+				return rate2.value;
+			}
+			else{
+				return rate3.value;
+			}
+        }
+		
+		function submitForm() {
+			
+            const popupContent = `
+				<p>Name: ${document.getElementById('firstName').value}</p>
+                <p>Email: ${document.getElementById('email').value}</p>
+                <p>Product & Service : ${getSelectedProductService()}</p>
+				<p>Friend & colleague : ${getSelectedFriendColleague()}</p>
+				<p>Company Rating : ${getSelectedRating()}</p>
+				<p>Feedback: ${document.getElementById('feedback').value}</p>
+            `;
+			document.getElementById('popup').innerHTML = popupContent;
+            document.getElementById('popup').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
